@@ -1,0 +1,1597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MortZKey - MortApps Studios</title>
+  
+  <!-- PWA Meta Tags -->
+  <meta name="theme-color" content="#0a0a0f">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="MortZKey">
+  
+  <!-- Favicon and Icons -->
+  <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+  <link rel="icon" type="image/x-icon" href="icons/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #0f0f1a 100%);
+      min-height: 100vh;
+      color: #fff;
+      padding: 20px;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 35px;
+      padding: 25px;
+      background: linear-gradient(135deg, rgba(0,212,255,0.05), rgba(123,44,191,0.05));
+      border-radius: 16px;
+      border: 1px solid rgba(0,212,255,0.15);
+      position: relative;
+    }
+    
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+    }
+    
+    .header-logo {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 15px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,212,255,0.3);
+    }
+    
+    .logo {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #00d4ff 0%, #7b2cbf 50%, #00d4ff 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradient 3s linear infinite;
+      margin-bottom: 8px;
+    }
+    
+    @keyframes gradient {
+      0% { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+    
+    .header .tagline {
+      color: #666;
+      font-size: 0.9rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    
+    .header .brand {
+      color: #888;
+      font-size: 0.8rem;
+      margin-top: 8px;
+    }
+    
+    .warning-banner {
+      background: linear-gradient(135deg, #ff6b6b15, #ee5a5a10);
+      border: 1px solid #ff6b6b30;
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .warning-banner .icon {
+      font-size: 1.3rem;
+    }
+    
+    .warning-banner p {
+      color: #ffaaaa;
+      font-size: 0.85rem;
+    }
+    
+    .warning-banner strong {
+      color: #ff6b6b;
+    }
+    
+    .generator-section {
+      background: rgba(255,255,255,0.02);
+      border-radius: 14px;
+      padding: 25px;
+      margin-bottom: 25px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #fff;
+    }
+    
+    .section-title .icon {
+      font-size: 1.2rem;
+    }
+    
+    .generator-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    
+    .tier-card {
+      background: rgba(0,0,0,0.3);
+      border-radius: 12px;
+      padding: 18px;
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: all 0.3s ease;
+    }
+    
+    .tier-card:hover {
+      border-color: rgba(255,255,255,0.12);
+      transform: translateY(-2px);
+    }
+    
+    .tier-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    
+    .tier-badge {
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.8rem;
+      font-family: 'Courier New', monospace;
+    }
+    
+    .tier-badge.starter { background: #4ade8020; color: #4ade80; }
+    .tier-badge.professional { background: #60a5fa20; color: #60a5fa; }
+    .tier-badge.enterprise { background: #f59e0b20; color: #f59e0b; }
+    .tier-badge.enterprise-plus { background: #a855f720; color: #a855f7; }
+    
+    .tier-duration {
+      font-size: 0.75rem;
+      color: #666;
+    }
+    
+    .tier-info {
+      font-size: 0.8rem;
+      color: #777;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+    
+    .form-group {
+      margin-bottom: 10px;
+    }
+    
+    .form-group label {
+      display: block;
+      font-size: 0.75rem;
+      color: #666;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.03);
+      color: #fff;
+      font-size: 0.85rem;
+      transition: all 0.2s ease;
+    }
+    
+    .form-control:focus {
+      outline: none;
+      border-color: #00d4ff;
+      background: rgba(0,212,255,0.05);
+    }
+    
+    .form-control::placeholder {
+      color: #444;
+    }
+    
+    .generate-btn {
+      width: 100%;
+      padding: 11px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-bottom: 10px;
+    }
+    
+    .generate-btn.starter { background: linear-gradient(135deg, #4ade80, #22c55e); color: #000; }
+    .generate-btn.professional { background: linear-gradient(135deg, #60a5fa, #3b82f6); color: #000; }
+    .generate-btn.enterprise { background: linear-gradient(135deg, #f59e0b, #d97706); color: #000; }
+    .generate-btn.enterprise-plus { background: linear-gradient(135deg, #a855f7, #9333ea); color: #fff; }
+    
+    .generate-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    
+    .generated-key {
+      background: rgba(0,0,0,0.4);
+      border-radius: 8px;
+      padding: 12px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.95rem;
+      text-align: center;
+      letter-spacing: 1px;
+      color: #00d4ff;
+      margin-bottom: 8px;
+      word-break: break-all;
+      min-height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(0,212,255,0.1);
+    }
+    
+    .generated-key.empty {
+      color: #444;
+      font-style: italic;
+    }
+    
+    .copy-btn {
+      width: 100%;
+      padding: 8px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px;
+      color: #aaa;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .copy-btn:hover {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+    }
+    
+    .copy-btn.copied {
+      background: #4ade8020;
+      border-color: #4ade8050;
+      color: #4ade80;
+    }
+    
+    .batch-section {
+      background: rgba(255,255,255,0.02);
+      border-radius: 14px;
+      padding: 25px;
+      margin-bottom: 25px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    
+    .batch-controls {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+    
+    .batch-controls .form-control {
+      flex: 1;
+      min-width: 120px;
+    }
+    
+    .batch-btn {
+      padding: 10px 24px;
+      background: linear-gradient(135deg, #00d4ff, #7b2cbf);
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    
+    .batch-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0,212,255,0.25);
+    }
+    
+    .batch-form-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 15px;
+    }
+    
+    .batch-form-row .form-group {
+      flex: 1;
+      min-width: 150px;
+      margin-bottom: 0;
+    }
+    
+    .batch-results {
+      max-height: 250px;
+      overflow-y: auto;
+      margin-top: 15px;
+    }
+    
+    .batch-key-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      background: rgba(0,0,0,0.25);
+      border-radius: 8px;
+      margin-bottom: 6px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.8rem;
+    }
+    
+    .batch-key-item .key-text {
+      color: #00d4ff;
+    }
+    
+    .batch-key-item .key-meta {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .batch-key-item .key-tier,
+    .batch-key-item .key-company {
+      color: #666;
+      font-size: 0.7rem;
+    }
+    
+    .export-btn {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .export-btn:hover {
+      background: rgba(255,255,255,0.1);
+    }
+    
+    .records-section {
+      background: rgba(255,255,255,0.02);
+      border-radius: 14px;
+      padding: 25px;
+      margin-bottom: 25px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    
+    .records-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .records-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+    }
+    
+    .records-table th,
+    .records-table td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    .records-table th {
+      color: #666;
+      font-weight: 500;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .records-table td {
+      font-family: 'Courier New', monospace;
+    }
+    
+    .records-table .key-col {
+      color: #00d4ff;
+    }
+    
+    .records-table .company-col {
+      color: #aaa;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    
+    .records-table .date-col {
+      color: #555;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    
+    .clear-btn {
+      padding: 6px 14px;
+      background: #ff6b6b15;
+      border: 1px solid #ff6b6b30;
+      border-radius: 6px;
+      color: #ff6b6b;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .clear-btn:hover {
+      background: #ff6b6b25;
+    }
+    
+    .download-pdf-btn {
+      padding: 10px 24px;
+      background: linear-gradient(135deg, #ff6b6b, #ee5a5a);
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .download-pdf-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(255,107,107,0.3);
+    }
+    
+    .software-manager {
+      background: rgba(255,255,255,0.02);
+      border-radius: 14px;
+      padding: 25px;
+      margin-bottom: 25px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    
+    .software-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 15px;
+    }
+    
+    .software-tag {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: rgba(0,212,255,0.1);
+      border: 1px solid rgba(0,212,255,0.2);
+      border-radius: 20px;
+      font-size: 0.8rem;
+    }
+    
+    .software-tag .name {
+      color: #00d4ff;
+    }
+    
+    .software-tag .code {
+      color: #888;
+      font-family: 'Courier New', monospace;
+      font-size: 0.7rem;
+    }
+    
+    .software-tag .remove-btn {
+      background: none;
+      border: none;
+      color: #ff6b6b;
+      cursor: pointer;
+      font-size: 1rem;
+      padding: 0;
+      line-height: 1;
+    }
+    
+    .software-tag .remove-btn:hover {
+      color: #ff8888;
+    }
+    
+    .add-software-form {
+      display: flex;
+      gap: 12px;
+      margin-top: 15px;
+    }
+    
+    .add-software-form .form-group {
+      flex: 1;
+      margin-bottom: 0;
+    }
+    
+    .add-btn {
+      padding: 10px 20px;
+      background: linear-gradient(135deg, #4ade80, #22c55e);
+      border: none;
+      border-radius: 8px;
+      color: #000;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    
+    .add-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 15px rgba(74,222,128,0.3);
+    }
+    
+    .footer {
+      text-align: center;
+      margin-top: 35px;
+      padding: 20px;
+      color: #333;
+      font-size: 0.75rem;
+    }
+    
+    .footer .credit {
+      color: #444;
+      margin-top: 5px;
+    }
+    
+    .no-records {
+      text-align: center;
+      color: #444;
+      padding: 20px;
+      font-style: italic;
+    }
+    
+    .action-buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+      justify-content: flex-end;
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.02);
+      border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: rgba(0,212,255,0.3);
+      border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(0,212,255,0.5);
+    }
+    
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(0,0,0,0.9);
+      border: 1px solid rgba(0,212,255,0.3);
+      border-radius: 10px;
+      padding: 12px 20px;
+      color: #fff;
+      font-size: 0.85rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+    
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .toast.success {
+      border-color: rgba(74,222,128,0.5);
+      background: rgba(74,222,128,0.1);
+    }
+    
+    .toast.error {
+      border-color: rgba(255,107,107,0.5);
+      background: rgba(255,107,107,0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="icons/logo-base.png" alt="MortZKey Logo" class="header-logo">
+      <div class="logo">🔐 MortZKey</div>
+      <div class="tagline">License Key Generator</div>
+      <div class="brand">MortApps Studios</div>
+    </div>
+    
+    <div class="warning-banner">
+      <span class="icon">🔒</span>
+      <p><strong>INTERNAL USE ONLY</strong> — This tool generates production license keys. Keep secure and maintain records of all keys issued.</p>
+    </div>
+    
+    <!-- Software Manager -->
+    <div class="software-manager">
+      <div class="section-title">
+        <span class="icon">🖥️</span>
+        Software Products Manager
+      </div>
+      <p style="color: #666; font-size: 0.85rem; margin-bottom: 10px;">Add or remove software products for license key generation.</p>
+      
+      <div class="software-list" id="software-list"></div>
+      
+      <div class="add-software-form">
+        <div class="form-group">
+          <label>Software Name</label>
+          <input type="text" class="form-control" id="new-software-name" placeholder="e.g., MyApp Pro">
+        </div>
+        <div class="form-group">
+          <label>Code (2 chars)</label>
+          <input type="text" class="form-control" id="new-software-code" placeholder="e.g., MP" maxlength="2" style="text-transform: uppercase;">
+        </div>
+        <button class="add-btn" onclick="addSoftware()">+ Add Software</button>
+      </div>
+    </div>
+    
+    <!-- Single Key Generator -->
+    <div class="generator-section">
+      <div class="section-title">
+        <span class="icon">🔑</span>
+        Generate Single Key
+      </div>
+      
+      <div class="generator-grid">
+        <!-- Starter -->
+        <div class="tier-card">
+          <div class="tier-header">
+            <span class="tier-badge starter">ST-</span>
+            <span class="tier-duration">3 months</span>
+          </div>
+          <div class="tier-info">Starter • 1 workstation</div>
+          <div class="form-group">
+            <label>Product</label>
+            <select class="form-control" id="product-ST"></select>
+          </div>
+          <div class="form-group">
+            <label>Company Name</label>
+            <input type="text" class="form-control" id="company-ST" placeholder="e.g., Thorn Enterprises">
+          </div>
+          <button class="generate-btn starter" onclick="generateKey('ST')">Generate Key</button>
+          <div class="generated-key empty" id="key-ST">—</div>
+          <button class="copy-btn" onclick="copyKey('ST')">Copy to Clipboard</button>
+        </div>
+        
+        <!-- Professional -->
+        <div class="tier-card">
+          <div class="tier-header">
+            <span class="tier-badge professional">PR-</span>
+            <span class="tier-duration">12 months</span>
+          </div>
+          <div class="tier-info">Professional • 1 workstation</div>
+          <div class="form-group">
+            <label>Product</label>
+            <select class="form-control" id="product-PR"></select>
+          </div>
+          <div class="form-group">
+            <label>Company Name</label>
+            <input type="text" class="form-control" id="company-PR" placeholder="e.g., Thorn Enterprises">
+          </div>
+          <button class="generate-btn professional" onclick="generateKey('PR')">Generate Key</button>
+          <div class="generated-key empty" id="key-PR">—</div>
+          <button class="copy-btn" onclick="copyKey('PR')">Copy to Clipboard</button>
+        </div>
+        
+        <!-- Enterprise -->
+        <div class="tier-card">
+          <div class="tier-header">
+            <span class="tier-badge enterprise">EN-</span>
+            <span class="tier-duration">Perpetual</span>
+          </div>
+          <div class="tier-info">Enterprise • 1 workstation</div>
+          <div class="form-group">
+            <label>Product</label>
+            <select class="form-control" id="product-EN"></select>
+          </div>
+          <div class="form-group">
+            <label>Company Name</label>
+            <input type="text" class="form-control" id="company-EN" placeholder="e.g., Thorn Enterprises">
+          </div>
+          <button class="generate-btn enterprise" onclick="generateKey('EN')">Generate Key</button>
+          <div class="generated-key empty" id="key-EN">—</div>
+          <button class="copy-btn" onclick="copyKey('EN')">Copy to Clipboard</button>
+        </div>
+        
+        <!-- Enterprise Plus -->
+        <div class="tier-card">
+          <div class="tier-header">
+            <span class="tier-badge enterprise-plus">EPX-</span>
+            <span class="tier-duration">Perpetual</span>
+          </div>
+          <div class="tier-info">Enterprise Plus • 3 workstations</div>
+          <div class="form-group">
+            <label>Product</label>
+            <select class="form-control" id="product-EPX"></select>
+          </div>
+          <div class="form-group">
+            <label>Company Name</label>
+            <input type="text" class="form-control" id="company-EPX" placeholder="e.g., Thorn Enterprises">
+          </div>
+          <button class="generate-btn enterprise-plus" onclick="generateKey('EPX')">Generate Key</button>
+          <div class="generated-key empty" id="key-EPX">—</div>
+          <button class="copy-btn" onclick="copyKey('EPX')">Copy to Clipboard</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Batch Generator -->
+    <div class="batch-section">
+      <div class="section-title">
+        <span class="icon">📦</span>
+        Batch Generator — Generate multiple keys at once
+      </div>
+      
+      <div class="batch-form-row">
+        <div class="form-group">
+          <label>Product</label>
+          <select class="form-control" id="batch-product"></select>
+        </div>
+        <div class="form-group">
+          <label>Tier</label>
+          <select class="form-control" id="batch-tier">
+            <option value="ST">Starter (3 months)</option>
+            <option value="PR">Professional (12 months)</option>
+            <option value="EN">Enterprise (Perpetual)</option>
+            <option value="EPX">Enterprise Plus (Perpetual)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Company Name</label>
+          <input type="text" class="form-control" id="batch-company" placeholder="e.g., Thorn Enterprises">
+        </div>
+        <div class="form-group">
+          <label>Count</label>
+          <input type="number" class="form-control" id="batch-count" min="1" max="50" value="5">
+        </div>
+      </div>
+      
+      <button class="batch-btn" onclick="generateBatch()">Generate Batch</button>
+      
+      <div class="batch-results" id="batch-results"></div>
+      <button class="export-btn" onclick="exportBatch()" id="export-btn" style="display:none;">📥 Export to Text File</button>
+    </div>
+    
+    <!-- Records -->
+    <div class="records-section">
+      <div class="records-header">
+        <div class="section-title" style="margin-bottom:0;">
+          <span class="icon">📋</span>
+          Generated Keys Record
+        </div>
+        <button class="clear-btn" onclick="clearRecords()">Clear All</button>
+      </div>
+      
+      <table class="records-table">
+        <thead>
+          <tr>
+            <th>License Key</th>
+            <th>Product</th>
+            <th>Tier</th>
+            <th>Company</th>
+            <th>Generated</th>
+          </tr>
+        </thead>
+        <tbody id="records-body"></tbody>
+      </table>
+      
+      <div class="action-buttons">
+        <button class="download-pdf-btn" onclick="downloadPDF()">
+          <span>📄</span>
+          <span>Download as PDF</span>
+        </button>
+      </div>
+    </div>
+    
+    <div class="footer">
+      <div>MortApps Studios © 2025</div>
+      <div class="credit">MortZKey v2.0 — Engineered with precision</div>
+    </div>
+  </div>
+  
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+  
+  <script>
+    // ============================================
+    // RIGHT-CLICK AND SHORTCUT BLOCKING
+    // ============================================
+    
+    // Block right-click context menu
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+      showToast('Right-click is disabled', 'error');
+      return false;
+    });
+    
+    // Block keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+      // Block F12
+      if (e.key === 'F12') {
+        e.preventDefault();
+        showToast('Developer tools access is disabled', 'error');
+        return false;
+      }
+      
+      // Block Ctrl+Shift+I (Developer Tools)
+      if (e.ctrlKey && e.shiftKey && e.key === 'I') {
+        e.preventDefault();
+        showToast('Developer tools access is disabled', 'error');
+        return false;
+      }
+      
+      // Block Ctrl+Shift+J (Console)
+      if (e.ctrlKey && e.shiftKey && e.key === 'J') {
+        e.preventDefault();
+        showToast('Console access is disabled', 'error');
+        return false;
+      }
+      
+      // Block Ctrl+Shift+C (Element Inspector)
+      if (e.ctrlKey && e.shiftKey && e.key === 'C') {
+        e.preventDefault();
+        showToast('Element inspector is disabled', 'error');
+        return false;
+      }
+      
+      // Block Ctrl+U (View Source)
+      if (e.ctrlKey && e.key === 'u') {
+        e.preventDefault();
+        showToast('View source is disabled', 'error');
+        return false;
+      }
+      
+      // Block Ctrl+S (Save)
+      if (e.ctrlKey && e.key === 's') {
+        e.preventDefault();
+        showToast('Save is disabled', 'error');
+        return false;
+      }
+      
+      // Block Ctrl+P (Print)
+      if (e.ctrlKey && e.key === 'p') {
+        e.preventDefault();
+        showToast('Print is disabled', 'error');
+        return false;
+      }
+    });
+    
+    // Block drag and drop
+    document.addEventListener('dragstart', function(e) {
+      e.preventDefault();
+      return false;
+    });
+    
+    // Block text selection (handled in CSS too)
+    document.addEventListener('selectstart', function(e) {
+      if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+        e.preventDefault();
+        return false;
+      }
+    });
+    
+    // ============================================
+    // DATA CONFIGURATION
+    // ============================================
+    
+    // License Tier Configuration
+    const LICENSE_TIERS = {
+      'ST': { name: 'Starter', days: 90, prefix: 'ST' },
+      'PR': { name: 'Professional', days: 365, prefix: 'PR' },
+      'EN': { name: 'Enterprise', days: null, prefix: 'EN' },
+      'EPX': { name: 'Enterprise Plus', days: null, prefix: 'EPX' }
+    };
+    
+    // Default Products
+    const DEFAULT_PRODUCTS = {
+      'CV': { name: 'Phein Screener', code: 'CV' },
+      'BK': { name: 'BioAttex', code: 'BK' }
+    };
+    
+    // Dynamic products (loaded from localStorage)
+    let products = {};
+    let generatedKeys = [];
+    let batchKeys = [];
+    
+    // ============================================
+    // STORAGE FUNCTIONS
+    // ============================================
+    
+    // Load products from localStorage
+    function loadProducts() {
+      const stored = localStorage.getItem('mortzkey_products');
+      if (stored) {
+        const customProducts = JSON.parse(stored);
+        products = { ...DEFAULT_PRODUCTS, ...customProducts };
+      } else {
+        products = { ...DEFAULT_PRODUCTS };
+      }
+    }
+    
+    // Save custom products to localStorage
+    function saveProducts() {
+      const customProducts = {};
+      for (const code in products) {
+        if (!DEFAULT_PRODUCTS[code]) {
+          customProducts[code] = products[code];
+        }
+      }
+      localStorage.setItem('mortzkey_products', JSON.stringify(customProducts));
+    }
+    
+    // Load records from localStorage
+    function loadRecords() {
+      const stored = localStorage.getItem('mortzkey_records');
+      if (stored) {
+        generatedKeys = JSON.parse(stored);
+        renderRecords();
+      }
+    }
+    
+    // Save records to localStorage
+    function saveRecords() {
+      localStorage.setItem('mortzkey_records', JSON.stringify(generatedKeys));
+    }
+    
+    // ============================================
+    // SOFTWARE MANAGEMENT
+    // ============================================
+    
+    // Render software list
+    function renderSoftwareList() {
+      const container = document.getElementById('software-list');
+      container.innerHTML = '';
+      
+      for (const code in products) {
+        const product = products[code];
+        const tag = document.createElement('div');
+        tag.className = 'software-tag';
+        
+        const isDefault = DEFAULT_PRODUCTS[code];
+        
+        tag.innerHTML = `
+          <span class="name">${product.name}</span>
+          <span class="code">(${product.code})</span>
+          ${!isDefault ? `<button class="remove-btn" onclick="removeSoftware('${code}')" title="Remove">×</button>` : ''}
+        `;
+        
+        container.appendChild(tag);
+      }
+      
+      // Update all product dropdowns
+      updateProductDropdowns();
+    }
+    
+    // Update all product dropdown selects
+    function updateProductDropdowns() {
+      const dropdowns = [
+        'product-ST', 'product-PR', 'product-EN', 'product-EPX', 'batch-product'
+      ];
+      
+      dropdowns.forEach(id => {
+        const select = document.getElementById(id);
+        if (select) {
+          const currentValue = select.value;
+          select.innerHTML = '';
+          
+          for (const code in products) {
+            const option = document.createElement('option');
+            option.value = code;
+            option.textContent = products[code].name;
+            select.appendChild(option);
+          }
+          
+          // Restore previous selection if still valid
+          if (products[currentValue]) {
+            select.value = currentValue;
+          }
+        }
+      });
+    }
+    
+    // Add new software
+    function addSoftware() {
+      const nameInput = document.getElementById('new-software-name');
+      const codeInput = document.getElementById('new-software-code');
+      
+      const name = nameInput.value.trim();
+      const code = codeInput.value.trim().toUpperCase();
+      
+      if (!name) {
+        showToast('Please enter a software name', 'error');
+        return;
+      }
+      
+      if (!code || code.length !== 2) {
+        showToast('Please enter a 2-character code', 'error');
+        return;
+      }
+      
+      if (products[code]) {
+        showToast('This code already exists', 'error');
+        return;
+      }
+      
+      // Validate code is alphanumeric
+      if (!/^[A-Z0-9]{2}$/.test(code)) {
+        showToast('Code must be 2 uppercase letters or numbers', 'error');
+        return;
+      }
+      
+      products[code] = { name: name, code: code };
+      saveProducts();
+      renderSoftwareList();
+      
+      // Clear inputs
+      nameInput.value = '';
+      codeInput.value = '';
+      
+      showToast(`"${name}" added successfully!`, 'success');
+    }
+    
+    // Remove software
+    function removeSoftware(code) {
+      if (DEFAULT_PRODUCTS[code]) {
+        showToast('Cannot remove default products', 'error');
+        return;
+      }
+      
+      const name = products[code].name;
+      delete products[code];
+      saveProducts();
+      renderSoftwareList();
+      
+      showToast(`"${name}" removed successfully!`, 'success');
+    }
+    
+    // ============================================
+    // KEY GENERATION
+    // ============================================
+    
+    // Generate random alphanumeric segment
+    function generateSegment(length = 4) {
+      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+      let result = '';
+      for (let i = 0; i < length; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return result;
+    }
+    
+    // Generate checksum character
+    function generateChecksum(prefix, product, segment1, segment2) {
+      const combined = prefix + product + segment1 + segment2;
+      let sum = 0;
+      for (let i = 0; i < combined.length; i++) {
+        sum += combined.charCodeAt(i);
+      }
+      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+      return chars.charAt(sum % chars.length);
+    }
+    
+    // Generate a full license key
+    function generateLicenseKey(tier, product) {
+      const prefix = LICENSE_TIERS[tier].prefix;
+      const productCode = products[product].code;
+      const segment1 = generateSegment(4);
+      const segment2 = generateSegment(4);
+      const checksum = generateChecksum(prefix, productCode, segment1, segment2);
+      return `${prefix}-${productCode}${segment1}-${segment2}${checksum}`;
+    }
+    
+    // Generate and display single key
+    function generateKey(tier) {
+      const productSelect = document.getElementById(`product-${tier}`);
+      const companyInput = document.getElementById(`company-${tier}`);
+      const product = productSelect.value;
+      const company = companyInput.value.trim() || 'Not specified';
+      const key = generateLicenseKey(tier, product);
+      
+      // Display key
+      const keyElement = document.getElementById(`key-${tier}`);
+      keyElement.textContent = key;
+      keyElement.classList.remove('empty');
+      
+      // Record the key
+      const record = {
+        key: key,
+        product: products[product].name,
+        productCode: product,
+        tier: LICENSE_TIERS[tier].name,
+        tierCode: tier,
+        company: company,
+        generated: new Date().toISOString()
+      };
+      
+      generatedKeys.unshift(record);
+      saveRecords();
+      renderRecords();
+      
+      showToast('License key generated!', 'success');
+    }
+    
+    // Copy key to clipboard
+    function copyKey(tier) {
+      const keyElement = document.getElementById(`key-${tier}`);
+      const key = keyElement.textContent;
+      
+      if (key === '—') return;
+      
+      navigator.clipboard.writeText(key).then(() => {
+        const btn = keyElement.nextElementSibling;
+        btn.textContent = '✓ Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy to Clipboard';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+    
+    // ============================================
+    // BATCH GENERATION
+    // ============================================
+    
+    // Generate batch of keys
+    function generateBatch() {
+      const tier = document.getElementById('batch-tier').value;
+      const product = document.getElementById('batch-product').value;
+      const company = document.getElementById('batch-company').value.trim() || 'Not specified';
+      const count = parseInt(document.getElementById('batch-count').value) || 5;
+      
+      batchKeys = [];
+      const resultsContainer = document.getElementById('batch-results');
+      resultsContainer.innerHTML = '';
+      
+      for (let i = 0; i < Math.min(count, 50); i++) {
+        const key = generateLicenseKey(tier, product);
+        batchKeys.push({ key, company });
+        
+        // Add to main records
+        const record = {
+          key: key,
+          product: products[product].name,
+          productCode: product,
+          tier: LICENSE_TIERS[tier].name,
+          tierCode: tier,
+          company: company,
+          generated: new Date().toISOString()
+        };
+        generatedKeys.unshift(record);
+        
+        // Display in batch results
+        const item = document.createElement('div');
+        item.className = 'batch-key-item';
+        item.innerHTML = `
+          <span class="key-text">${key}</span>
+          <span class="key-meta">
+            <span class="key-tier">${LICENSE_TIERS[tier].name}</span>
+            <span class="key-company">${company}</span>
+          </span>
+        `;
+        resultsContainer.appendChild(item);
+      }
+      
+      saveRecords();
+      renderRecords();
+      document.getElementById('export-btn').style.display = 'inline-block';
+      
+      showToast(`${Math.min(count, 50)} keys generated!`, 'success');
+    }
+    
+    // Export batch to text file
+    function exportBatch() {
+      if (batchKeys.length === 0) return;
+      
+      const tier = document.getElementById('batch-tier').value;
+      const product = document.getElementById('batch-product').value;
+      const company = document.getElementById('batch-company').value.trim() || 'Not specified';
+      
+      let content = `═══════════════════════════════════════════════════════════════\n`;
+      content += `                    MORTAPPS STUDIOS\n`;
+      content += `                    LICENSE KEYS\n`;
+      content += `═══════════════════════════════════════════════════════════════\n\n`;
+      content += `Product:     ${products[product].name}\n`;
+      content += `Tier:        ${LICENSE_TIERS[tier].name}\n`;
+      content += `Company:     ${company}\n`;
+      content += `Generated:   ${new Date().toLocaleString()}\n`;
+      content += `Count:       ${batchKeys.length}\n\n`;
+      content += `───────────────────────────────────────────────────────────────\n`;
+      content += `                        LICENSE KEYS\n`;
+      content += `───────────────────────────────────────────────────────────────\n\n`;
+      
+      batchKeys.forEach((item, index) => {
+        content += `  ${String(index + 1).padStart(2, '0')}. ${item.key}\n`;
+      });
+      
+      content += `\n═══════════════════════════════════════════════════════════════\n`;
+      content += `Generated by MortZKey - MortApps Studios\n`;
+      content += `═══════════════════════════════════════════════════════════════\n`;
+      
+      const blob = new Blob([content], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `MortZKey-${products[product].code}-${tier}-${Date.now()}.txt`;
+      a.click();
+      URL.revokeObjectURL(url);
+      
+      showToast('Text file exported!', 'success');
+    }
+    
+    // ============================================
+    // RECORDS MANAGEMENT
+    // ============================================
+    
+    // Render records table
+    function renderRecords() {
+      const tbody = document.getElementById('records-body');
+      tbody.innerHTML = '';
+      
+      if (generatedKeys.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="no-records">No keys generated yet</td></tr>';
+        return;
+      }
+      
+      generatedKeys.slice(0, 100).forEach(record => {
+        const tr = document.createElement('tr');
+        const date = new Date(record.generated);
+        tr.innerHTML = `
+          <td class="key-col">${record.key}</td>
+          <td>${record.product}</td>
+          <td>${record.tier}</td>
+          <td class="company-col">${record.company}</td>
+          <td class="date-col">${date.toLocaleDateString()} ${date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+    
+    // Clear all records
+    function clearRecords() {
+      if (confirm('Clear all key records? This cannot be undone.')) {
+        generatedKeys = [];
+        localStorage.removeItem('mortzkey_records');
+        renderRecords();
+        showToast('All records cleared', 'success');
+      }
+    }
+    
+    // ============================================
+    // PDF DOWNLOAD
+    // ============================================
+    
+    function downloadPDF() {
+      if (generatedKeys.length === 0) {
+        showToast('No keys to download', 'error');
+        return;
+      }
+      
+      // Create printable HTML content
+      const printWindow = window.open('', '_blank');
+      
+      let tableRows = '';
+      generatedKeys.forEach((record, index) => {
+        const date = new Date(record.generated);
+        tableRows += `
+          <tr>
+            <td>${index + 1}</td>
+            <td class="key">${record.key}</td>
+            <td>${record.product}</td>
+            <td>${record.tier}</td>
+            <td>${record.company}</td>
+            <td>${date.toLocaleDateString()} ${date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</td>
+          </tr>
+        `;
+      });
+      
+      const htmlContent = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>MortZKey License Keys - MortApps Studios</title>
+          <style>
+            * {
+              margin: 0;
+              padding: 0;
+              box-sizing: border-box;
+            }
+            
+            body {
+              font-family: 'Segoe UI', Arial, sans-serif;
+              padding: 40px;
+              color: #1a1a2e;
+            }
+            
+            .header {
+              text-align: center;
+              margin-bottom: 30px;
+              padding-bottom: 20px;
+              border-bottom: 2px solid #00d4ff;
+            }
+            
+            .logo-text {
+              font-size: 28px;
+              font-weight: 800;
+              background: linear-gradient(135deg, #00d4ff, #7b2cbf);
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              background-clip: text;
+              margin-bottom: 5px;
+            }
+            
+            .subtitle {
+              color: #666;
+              font-size: 12px;
+              letter-spacing: 2px;
+              text-transform: uppercase;
+            }
+            
+            .info-section {
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: 25px;
+              padding: 15px;
+              background: #f8f9fa;
+              border-radius: 8px;
+            }
+            
+            .info-item {
+              text-align: center;
+            }
+            
+            .info-label {
+              font-size: 10px;
+              color: #888;
+              text-transform: uppercase;
+              letter-spacing: 1px;
+            }
+            
+            .info-value {
+              font-size: 18px;
+              font-weight: 700;
+              color: #1a1a2e;
+              margin-top: 3px;
+            }
+            
+            table {
+              width: 100%;
+              border-collapse: collapse;
+              margin-bottom: 30px;
+            }
+            
+            th {
+              background: linear-gradient(135deg, #1a1a2e, #2d2d44);
+              color: #fff;
+              padding: 12px 10px;
+              text-align: left;
+              font-size: 10px;
+              text-transform: uppercase;
+              letter-spacing: 1px;
+            }
+            
+            td {
+              padding: 10px;
+              border-bottom: 1px solid #e0e0e0;
+              font-size: 11px;
+            }
+            
+            td.key {
+              font-family: 'Courier New', monospace;
+              font-weight: 600;
+              color: #00d4ff;
+            }
+            
+            tr:nth-child(even) {
+              background: #f8f9fa;
+            }
+            
+            .footer {
+              text-align: center;
+              margin-top: 40px;
+              padding-top: 20px;
+              border-top: 1px solid #e0e0e0;
+            }
+            
+            .footer-brand {
+              font-size: 14px;
+              font-weight: 600;
+              color: #1a1a2e;
+            }
+            
+            .footer-tagline {
+              font-size: 10px;
+              color: #00d4ff;
+              margin-top: 5px;
+              font-weight: 600;
+            }
+            
+            .powered-by {
+              margin-top: 15px;
+              font-size: 10px;
+              color: #888;
+            }
+            
+            .powered-by span {
+              color: #7b2cbf;
+              font-weight: 600;
+            }
+            
+            @media print {
+              body {
+                padding: 20px;
+              }
+              
+              .header {
+                page-break-after: avoid;
+              }
+              
+              table {
+                page-break-inside: auto;
+              }
+              
+              tr {
+                page-break-inside: avoid;
+                page-break-after: auto;
+              }
+            }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <div class="logo-text">🔐 MortZKey License Keys</div>
+            <div class="subtitle">MortApps Studios — Official License Record</div>
+          </div>
+          
+          <div class="info-section">
+            <div class="info-item">
+              <div class="info-label">Total Keys</div>
+              <div class="info-value">${generatedKeys.length}</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Generated On</div>
+              <div class="info-value">${new Date().toLocaleDateString()}</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Document ID</div>
+              <div class="info-value">${Date.now().toString(36).toUpperCase()}</div>
+            </div>
+          </div>
+          
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>License Key</th>
+                <th>Product</th>
+                <th>Tier</th>
+                <th>Company</th>
+                <th>Generated</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${tableRows}
+            </tbody>
+          </table>
+          
+          <div class="footer">
+            <div class="footer-brand">MortApps Studios © 2025</div>
+            <div class="footer-tagline">MortZKey v2.0 — Engineered with precision</div>
+            <div class="powered-by">Powered By <span>MortApps Studios</span></div>
+          </div>
+        </body>
+        </html>
+      `;
+      
+      printWindow.document.write(htmlContent);
+      printWindow.document.close();
+      
+      // Wait for content to load then trigger print dialog
+      printWindow.onload = function() {
+        printWindow.print();
+      };
+      
+      showToast('PDF ready for download!', 'success');
+    }
+    
+    // ============================================
+    // TOAST NOTIFICATIONS
+    // ============================================
+    
+    function showToast(message, type = 'success') {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.className = `toast ${type} show`;
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+    
+    // ============================================
+    // PWA SERVICE WORKER REGISTRATION
+    // ============================================
+    
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('sw.js').then(function(registration) {
+          console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }).catch(function(err) {
+          console.log('ServiceWorker registration failed: ', err);
+        });
+      });
+    }
+    
+    // ============================================
+    // INITIALIZATION
+    // ============================================
+    
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      loadProducts();
+      loadRecords();
+      renderSoftwareList();
+    });
+  </script>
+</body>
+</html>
