@@ -2,12 +2,12 @@
   "name": "MortZKey - License Key Generator",
   "short_name": "MortZKey",
   "description": "MortApps Studios License Key Generator - Professional license key management system",
-  "start_url": "/",
+  "start_url": "/mortzkey/",
   "display": "standalone",
   "background_color": "#0a0a0f",
   "theme_color": "#00d4ff",
   "orientation": "any",
-  "scope": "/",
+  "scope": "/mortzkey/",
   "lang": "en",
   "categories": ["utilities", "business", "productivity"],
   "icons": [
@@ -34,7 +34,7 @@
       "name": "Generate Key",
       "short_name": "Generate",
       "description": "Generate a new license key",
-      "url": "/",
+      "url": "/mortzkey/",
       "icons": [
         {
           "src": "icons/favicon-32x32.png",
@@ -46,3 +46,4 @@
   "screenshots": [],
   "prefer_related_applications": false
 }
+
