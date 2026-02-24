@@ -3,16 +3,15 @@
 
 const CACHE_NAME = 'mortzkey-v2.0.0';
 const ASSETS_TO_CACHE = [
-  '/',
-  '/index.html',
-  '/site.webmanifest',
-  '/icons/logo-base.png',
-  '/icons/android-chrome-192x192.png',
-  '/icons/android-chrome-512x512.png',
-  '/icons/apple-touch-icon.png',
-  '/icons/favicon-32x32.png',
-  '/icons/favicon-16x16.png',
-  '/icons/favicon.ico'
+  '/mortzkey/',
+  '/mortzkey/index.html',
+  '/mortzkey/site.webmanifest',
+  '/mortzkey/icons/android-chrome-192x192.png',
+  '/mortzkey/icons/android-chrome-512x512.png',
+  '/mortzkey/icons/apple-touch-icon.png',
+  '/mortzkey/icons/favicon-32x32.png',
+  '/mortzkey/icons/favicon-16x16.png',
+  '/mortzkey/icons/favicon.ico'
 ];
 
 // Install event - cache assets
@@ -80,7 +79,7 @@ self.addEventListener('fetch', function(event) {
         console.log('[MortZKey] Fetch failed:', error);
         
         // Return offline page if available
-        return caches.match('/index.html');
+        return caches.match('/mortzkey/index.html');
       });
     })
   );
